@@ -1,6 +1,5 @@
 from .base_op import GraphOp, MessageOp
-from .graph_op import graph_op
-from .message_op import message_op
+from . import graph_op, message_op
 
 
 __all__ = [
@@ -9,3 +8,5 @@ __all__ = [
     "graph_op",
     "message_op",
 ]
+
+classes = __all__

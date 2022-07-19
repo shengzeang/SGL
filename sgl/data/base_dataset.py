@@ -8,7 +8,7 @@ from scipy.sparse import csr_matrix
 
 from sgl.data.base_data import Node, Edge
 from sgl.data.utils import file_exist, to_undirected
-from sgl.dataset.choose_edge_type import ChooseMultiSubgraphs
+from sgl.etc.choose_edge_type import ChooseMultiSubgraphs
 
 
 # Base class for node-level tasks

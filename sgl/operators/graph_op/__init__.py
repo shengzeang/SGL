@@ -3,5 +3,7 @@ from .ppr_graph_op import PprGraphOp
 
 __all__ = [
     "LaplacianGraphOp",
-    "PprGraphOp",
+    "PprGraphOp"
 ]
+
+classes = __all__

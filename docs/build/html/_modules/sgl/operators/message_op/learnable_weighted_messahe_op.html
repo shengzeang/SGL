@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sgl.operators.message_op.learnable_weighted_messahe_op &mdash; SGL beta documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> SGL
+          </a>
+              <div class="version">
+                0.1.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/overview/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/installation/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_started/quick_start/quick_start.html">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/data/data.html">data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/datasets/datasets.html">datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/operators/graph_operators.html">graph operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/operators/message_operators.html">message operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/models/models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/tasks/tasks.html">tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/search/search.html">search</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">SGL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      <li>sgl.operators.message_op.learnable_weighted_messahe_op</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sgl.operators.message_op.learnable_weighted_messahe_op</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">Linear</span>
+
+<span class="kn">from</span> <span class="nn">sgl.operators.base_op</span> <span class="kn">import</span> <span class="n">MessageOp</span>
+<span class="kn">from</span> <span class="nn">sgl.operators.utils</span> <span class="kn">import</span> <span class="n">one_dim_weighted_add</span><span class="p">,</span> <span class="n">two_dim_weighted_add</span>
+
+
+<div class="viewcode-block" id="LearnableWeightedMessageOp"><a class="viewcode-back" href="../../../../api/operators/message_operators.html#sgl.operators.message_op.LearnableWeightedMessageOp">[docs]</a><span class="k">class</span> <span class="nc">LearnableWeightedMessageOp</span><span class="p">(</span><span class="n">MessageOp</span><span class="p">):</span>
+
+    <span class="c1"># &#39;simple&#39; needs one additional parameter &#39;prop_steps&#39;;</span>
+    <span class="c1"># &#39;simple_weighted&#39; allows negative weights, all else being the same as &#39;simple&#39;;</span>
+    <span class="c1"># &#39;gate&#39; needs one additional parameter &#39;feat_dim&#39;;</span>
+    <span class="c1"># &#39;ori_ref&#39; needs one additional parameter &#39;feat_dim&#39;;</span>
+    <span class="c1"># &#39;jk&#39; needs two additional parameter &#39;prop_steps&#39; and &#39;feat_dim&#39;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">combination_type</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LearnableWeightedMessageOp</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_aggr_type</span> <span class="o">=</span> <span class="s2">&quot;learnable_weighted&quot;</span>
+
+        <span class="k">if</span> <span class="n">combination_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;simple&quot;</span><span class="p">,</span> <span class="s2">&quot;simple_allow_neg&quot;</span><span class="p">,</span> <span class="s2">&quot;gate&quot;</span><span class="p">,</span> <span class="s2">&quot;ori_ref&quot;</span><span class="p">,</span> <span class="s2">&quot;jk&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Invalid weighted combination type! Type must be &#39;simple&#39;, &#39;simple_allow_neg&#39;, &#39;gate&#39;, &#39;ori_ref&#39; or &#39;jk&#39;.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__combination_type</span> <span class="o">=</span> <span class="n">combination_type</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__learnable_weight</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">combination_type</span> <span class="o">==</span> <span class="s2">&quot;simple&quot;</span> <span class="ow">or</span> <span class="n">combination_type</span> <span class="o">==</span> <span class="s2">&quot;simple_allow_neg&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Invalid parameter numbers for the simple learnable weighted aggregator!&quot;</span><span class="p">)</span>
+            <span class="n">prop_steps</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="c1"># a 2d tensor is required to use xavier_uniform_.</span>
+            <span class="n">tmp_2d_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">prop_steps</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">xavier_normal_</span><span class="p">(</span><span class="n">tmp_2d_tensor</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__learnable_weight</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">tmp_2d_tensor</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">elif</span> <span class="n">combination_type</span> <span class="o">==</span> <span class="s2">&quot;gate&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Invalid parameter numbers for the gate learnable weighted aggregator!&quot;</span><span class="p">)</span>
+            <span class="n">feat_dim</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__learnable_weight</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="n">feat_dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">combination_type</span> <span class="o">==</span> <span class="s2">&quot;ori_ref&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Invalid parameter numbers for the ori_ref learnable weighted aggregator!&quot;</span><span class="p">)</span>
+            <span class="n">feat_dim</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__learnable_weight</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="n">feat_dim</span> <span class="o">+</span> <span class="n">feat_dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">combination_type</span> <span class="o">==</span> <span class="s2">&quot;jk&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Invalid parameter numbers for the jk learnable weighted aggregator!&quot;</span><span class="p">)</span>
+            <span class="n">prop_steps</span><span class="p">,</span> <span class="n">feat_dim</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__learnable_weight</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span>
+                <span class="n">feat_dim</span> <span class="o">+</span> <span class="p">(</span><span class="n">prop_steps</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">feat_dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_combine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feat_list</span><span class="p">):</span>
+        <span class="n">weight_list</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__combination_type</span> <span class="o">==</span> <span class="s2">&quot;simple&quot;</span><span class="p">:</span>
+            <span class="n">weight_list</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__learnable_weight</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">_end</span><span class="p">]),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">__combination_type</span> <span class="o">==</span> <span class="s2">&quot;simple_allow_neg&quot;</span><span class="p">:</span>
+            <span class="n">weight_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__learnable_weight</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">_end</span><span class="p">]</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">__combination_type</span> <span class="o">==</span> <span class="s2">&quot;gate&quot;</span><span class="p">:</span>
+            <span class="n">adopted_feat_list</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">feat_list</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">_end</span><span class="p">])</span>
+            <span class="n">weight_list</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__learnable_weight</span><span class="p">(</span><span class="n">adopted_feat_list</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">__combination_type</span> <span class="o">==</span> <span class="s2">&quot;ori_ref&quot;</span><span class="p">:</span>
+            <span class="n">reference_feat</span> <span class="o">=</span> <span class="n">feat_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">adopted_feat_list</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">reference_feat</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">feat_list</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">_end</span><span class="p">])))</span>
+            <span class="n">weight_list</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__learnable_weight</span><span class="p">(</span><span class="n">adopted_feat_list</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">)),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">__combination_type</span> <span class="o">==</span> <span class="s2">&quot;jk&quot;</span><span class="p">:</span>
+            <span class="n">reference_feat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">feat_list</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">adopted_feat_list</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">reference_feat</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">feat_list</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">_end</span><span class="p">])))</span>
+            <span class="n">weight_list</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__learnable_weight</span><span class="p">(</span><span class="n">adopted_feat_list</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">)),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+        <span class="n">weighted_feat</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__combination_type</span> <span class="o">==</span> <span class="s2">&quot;simple&quot;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">__combination_type</span> <span class="o">==</span> <span class="s2">&quot;simple_allow_neg&quot;</span><span class="p">:</span>
+            <span class="n">weighted_feat</span> <span class="o">=</span> <span class="n">one_dim_weighted_add</span><span class="p">(</span>
+                <span class="n">feat_list</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">_end</span><span class="p">],</span> <span class="n">weight_list</span><span class="o">=</span><span class="n">weight_list</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">__combination_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;gate&quot;</span><span class="p">,</span> <span class="s2">&quot;ori_ref&quot;</span><span class="p">,</span> <span class="s2">&quot;jk&quot;</span><span class="p">]:</span>
+            <span class="n">weighted_feat</span> <span class="o">=</span> <span class="n">two_dim_weighted_add</span><span class="p">(</span>
+                <span class="n">feat_list</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">_end</span><span class="p">],</span> <span class="n">weight_list</span><span class="o">=</span><span class="n">weight_list</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+        <span class="k">return</span> <span class="n">weighted_feat</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, DAIR @PKU.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

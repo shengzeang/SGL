@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Start &mdash; SGL beta documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="sgl.data" href="../../api/data/data.html" />
+    <link rel="prev" title="Installation" href="../installation/installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> SGL
+          </a>
+              <div class="version">
+                0.1.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/data/data.html">data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/datasets/datasets.html">datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/operators/graph_operators.html">graph operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/operators/message_operators.html">message operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/models/models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/tasks/tasks.html">tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/search/search.html">search</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SGL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Quick Start</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/get_started/quick_start/quick_start.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="quick-start">
+<h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this heading">¶</a></h1>
+<p>In this short tutorial, we will qucikly go through the basic and the advanced usage of SGL.
+The tutorial is composed of following parts:</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#basic-usage" id="id1">Basic usage</a></p>
+<ul>
+<li><p><a class="reference internal" href="#execute-graph-related-tasks" id="id2">Execute graph-related tasks</a></p>
+<ul>
+<li><p><a class="reference internal" href="#import-datasets" id="id3">Import datasets</a></p></li>
+<li><p><a class="reference internal" href="#import-gnn-models" id="id4">Import GNN models</a></p></li>
+<li><p><a class="reference internal" href="#execute-tasks" id="id5">Execute tasks</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#auto-neural-architrcture-search-todo" id="id6">Auto neural architrcture search (TODO)</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#advanced-usage" id="id7">Advanced usage</a></p>
+<ul>
+<li><p><a class="reference internal" href="#adopt-user-defined-datasets" id="id8">Adopt user-defined datasets</a></p></li>
+<li><p><a class="reference internal" href="#build-models-under-sgap-paradigm" id="id9">Build models under SGAP paradigm</a></p></li>
+<li><p><a class="reference internal" href="#implement-new-graph-operators" id="id10">Implement new Graph Operators</a></p></li>
+<li><p><a class="reference internal" href="#implement-new-message-operators" id="id11">Implement new Message Operators</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="basic-usage">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">Basic usage</a><a class="headerlink" href="#basic-usage" title="Permalink to this heading">¶</a></h2>
+<p>In this part, we will introduce the basic usage of SGL, including how to excute graph-related tasks and how to use the NAS (Neural Architecture Search) functionality.</p>
+<section id="execute-graph-related-tasks">
+<h3><a class="toc-backref" href="#id2" role="doc-backlink">Execute graph-related tasks</a><a class="headerlink" href="#execute-graph-related-tasks" title="Permalink to this heading">¶</a></h3>
+<p>SGL provides user-friendly interfaces to execute graph-related tasks, including node classification, node clustering, and link prediction.
+In this tutorial, we will go through an example of excuting a node classification task with a SGC on the PubMed dataset.</p>
+<section id="import-datasets">
+<h4><a class="toc-backref" href="#id3" role="doc-backlink">Import datasets</a><a class="headerlink" href="#import-datasets" title="Permalink to this heading">¶</a></h4>
+<p>Here we import the PubMed dataset via the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sgl.datasets</span> <span class="kn">import</span> <span class="n">Planetoid</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">Planetoid</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;pubmed&quot;</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;official&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="xref py py-obj docutils literal notranslate"><span class="pre">Planetoid</span></code> class contains three popular graph datasets: Cora, Citeseer, and PubMed.</p>
+<ul class="simple">
+<li><p>The 1st argument <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/autosummary.html#name" title="(in Sphinx v6.0.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a> indicates which dataset among the three to choose;</p></li>
+<li><p>The 2nd argument <code class="xref py py-obj docutils literal notranslate"><span class="pre">root</span></code> indicates where to put the dataset files;</p></li>
+<li><p>The 3rd argumnet <code class="xref py py-obj docutils literal notranslate"><span class="pre">split</span></code> indicates the train/validation/test split.</p></li>
+</ul>
+<p>SGL has integated many graph datasets other than the Planetoid datasets.
+Please refer to <a class="reference external" href="../../api/datasets/datasets.html">datasets part</a> for the detailed information of each dataset.</p>
+</section>
+<section id="import-gnn-models">
+<h4><a class="toc-backref" href="#id4" role="doc-backlink">Import GNN models</a><a class="headerlink" href="#import-gnn-models" title="Permalink to this heading">¶</a></h4>
+<p>Here we import the GNN model SGC as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sgl.models.homo</span> <span class="kn">import</span> <span class="n">SGC</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">SGC</span><span class="p">(</span><span class="n">prop_steps</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">feat_dim</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">num_features</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">num_classes</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>SGL supports not only GNNs designed for homogeneous graphs but also GNNs designed for heterogeneous graphs.
+The two different categories of models reside in <code class="xref py py-obj docutils literal notranslate"><span class="pre">sgl.models.homo</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">sgl.models.hetero</span></code>, respectively.
+The GNN model SGC is designed for homogeneous graphs, and thus can be imported from <code class="xref py py-obj docutils literal notranslate"><span class="pre">sgl.models.homo</span></code>.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">SGC</span></code> class has three main arguments:</p>
+<ul class="simple">
+<li><p>The 1st argument <code class="xref py py-obj docutils literal notranslate"><span class="pre">prop_steps</span></code> stands for the propagation depth;</p></li>
+<li><p>The 2nd argument <code class="xref py py-obj docutils literal notranslate"><span class="pre">feat_dim</span></code> stands for the dimension of the input feature;</p></li>
+<li><p>The 3rd argument <code class="xref py py-obj docutils literal notranslate"><span class="pre">output_dim</span></code> stands for the dimension of the output representation.</p></li>
+</ul>
+<p>Please refer to the <a class="reference external" href="../../api/models/models.html">models part</a> for more details of SGC and other GNN models.</p>
+</section>
+<section id="execute-tasks">
+<h4><a class="toc-backref" href="#id5" role="doc-backlink">Execute tasks</a><a class="headerlink" href="#execute-tasks" title="Permalink to this heading">¶</a></h4>
+<p>The node classification task can be executed by the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sgl.tasks</span> <span class="kn">import</span> <span class="n">NodeClassification</span>
+<span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda:0&quot;</span>
+<span class="n">test_acc</span> <span class="o">=</span> <span class="n">NodeClassification</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mf">5e-5</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">test_acc</span>
+</pre></div>
+</div>
+<p>The users have to input the adopted dataset, the adopted GNN model, and several hyperparameters before executing a task.</p>
+<p>The possible output of the above code might be:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Preprocessing <span class="k">done</span> <span class="k">in</span> <span class="m">0</span>.1280s
+Epoch: <span class="m">001</span> loss_train: <span class="m">1</span>.0985 acc_train: <span class="m">0</span>.3333 acc_val: <span class="m">0</span>.2300 acc_test: <span class="m">0</span>.2110 time: <span class="m">1</span>.3086s
+Epoch: <span class="m">002</span> loss_train: <span class="m">1</span>.0289 acc_train: <span class="m">0</span>.3667 acc_val: <span class="m">0</span>.7100 acc_test: <span class="m">0</span>.6920 time: <span class="m">0</span>.0030s
+Epoch: <span class="m">003</span> loss_train: <span class="m">0</span>.9554 acc_train: <span class="m">0</span>.8667 acc_val: <span class="m">0</span>.7220 acc_test: <span class="m">0</span>.7300 time: <span class="m">0</span>.0040s
+Epoch: <span class="m">004</span> loss_train: <span class="m">0</span>.8918 acc_train: <span class="m">0</span>.9333 acc_val: <span class="m">0</span>.7220 acc_test: <span class="m">0</span>.7300 time: <span class="m">0</span>.0030s
+Epoch: <span class="m">005</span> loss_train: <span class="m">0</span>.8354 acc_train: <span class="m">0</span>.9167 acc_val: <span class="m">0</span>.7400 acc_test: <span class="m">0</span>.7220 time: <span class="m">0</span>.0020s
+Epoch: <span class="m">006</span> loss_train: <span class="m">0</span>.7835 acc_train: <span class="m">0</span>.9333 acc_val: <span class="m">0</span>.7380 acc_test: <span class="m">0</span>.7180 time: <span class="m">0</span>.0030s
+Epoch: <span class="m">007</span> loss_train: <span class="m">0</span>.7358 acc_train: <span class="m">0</span>.9167 acc_val: <span class="m">0</span>.7280 acc_test: <span class="m">0</span>.7240 time: <span class="m">0</span>.0020s
+Epoch: <span class="m">008</span> loss_train: <span class="m">0</span>.6929 acc_train: <span class="m">0</span>.9333 acc_val: <span class="m">0</span>.7320 acc_test: <span class="m">0</span>.7320 time: <span class="m">0</span>.0030s
+Epoch: <span class="m">009</span> loss_train: <span class="m">0</span>.6546 acc_train: <span class="m">0</span>.9333 acc_val: <span class="m">0</span>.7360 acc_test: <span class="m">0</span>.7340 time: <span class="m">0</span>.0030s
+Epoch: <span class="m">010</span> loss_train: <span class="m">0</span>.6198 acc_train: <span class="m">0</span>.9333 acc_val: <span class="m">0</span>.7360 acc_test: <span class="m">0</span>.7360 time: <span class="m">0</span>.0030s
+......
+Epoch: <span class="m">191</span> loss_train: <span class="m">0</span>.1886 acc_train: <span class="m">1</span>.0000 acc_val: <span class="m">0</span>.8020 acc_test: <span class="m">0</span>.7920 time: <span class="m">0</span>.0030s
+Epoch: <span class="m">192</span> loss_train: <span class="m">0</span>.1886 acc_train: <span class="m">1</span>.0000 acc_val: <span class="m">0</span>.8020 acc_test: <span class="m">0</span>.7930 time: <span class="m">0</span>.0030s
+Epoch: <span class="m">193</span> loss_train: <span class="m">0</span>.1885 acc_train: <span class="m">1</span>.0000 acc_val: <span class="m">0</span>.8020 acc_test: <span class="m">0</span>.7920 time: <span class="m">0</span>.0030s
+Epoch: <span class="m">194</span> loss_train: <span class="m">0</span>.1884 acc_train: <span class="m">1</span>.0000 acc_val: <span class="m">0</span>.8020 acc_test: <span class="m">0</span>.7920 time: <span class="m">0</span>.0030s
+Epoch: <span class="m">195</span> loss_train: <span class="m">0</span>.1884 acc_train: <span class="m">1</span>.0000 acc_val: <span class="m">0</span>.8020 acc_test: <span class="m">0</span>.7920 time: <span class="m">0</span>.0030s
+Epoch: <span class="m">196</span> loss_train: <span class="m">0</span>.1883 acc_train: <span class="m">1</span>.0000 acc_val: <span class="m">0</span>.8020 acc_test: <span class="m">0</span>.7920 time: <span class="m">0</span>.0020s
+Epoch: <span class="m">197</span> loss_train: <span class="m">0</span>.1882 acc_train: <span class="m">1</span>.0000 acc_val: <span class="m">0</span>.8020 acc_test: <span class="m">0</span>.7930 time: <span class="m">0</span>.0040s
+Epoch: <span class="m">198</span> loss_train: <span class="m">0</span>.1882 acc_train: <span class="m">1</span>.0000 acc_val: <span class="m">0</span>.8020 acc_test: <span class="m">0</span>.7920 time: <span class="m">0</span>.0030s
+Epoch: <span class="m">199</span> loss_train: <span class="m">0</span>.1881 acc_train: <span class="m">1</span>.0000 acc_val: <span class="m">0</span>.8020 acc_test: <span class="m">0</span>.7920 time: <span class="m">0</span>.0030s
+Epoch: <span class="m">200</span> loss_train: <span class="m">0</span>.1880 acc_train: <span class="m">1</span>.0000 acc_val: <span class="m">0</span>.8020 acc_test: <span class="m">0</span>.7910 time: <span class="m">0</span>.0030s
+Optimization Finished!
+Total <span class="nb">time</span> elapsed: <span class="m">1</span>.9751s
+Best val: <span class="m">0</span>.8020, best test: <span class="m">0</span>.7920
+</pre></div>
+</div>
+<p>Please refer to the <a class="reference external" href="../../api/tasks/tasks.html">tasks part</a> for more details of executing graph-related tasks.</p>
+</section>
+</section>
+<section id="auto-neural-architrcture-search-todo">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Auto neural architrcture search (TODO)</a><a class="headerlink" href="#auto-neural-architrcture-search-todo" title="Permalink to this heading">¶</a></h3>
+</section>
+</section>
+<section id="advanced-usage">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Advanced usage</a><a class="headerlink" href="#advanced-usage" title="Permalink to this heading">¶</a></h2>
+<p>In this part, we will introduce the advanced usage of SGL, including adopting user-defined datasets, building models under SGAP paradigm, implementing new graph operators and message operators.</p>
+<section id="adopt-user-defined-datasets">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Adopt user-defined datasets</a><a class="headerlink" href="#adopt-user-defined-datasets" title="Permalink to this heading">¶</a></h3>
+<p>SGL designs two base classes, <code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeDataset</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">HeteroNodeDataset</span></code>, for the homogeneous graph datasets and the heterogeneous graph datasets, respectively.
+We will take implementing a homogeneous graph dataset as an example below to explain how to adopt user-defined datasets.</p>
+<p>To implement a new homogeneous graph dataset, one has to first to inherit the base class <code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeDataset</span></code>, whose detailed introduction can be found in the <a class="reference external" href="../../api/data/data.html">data part</a>.
+Then, there exist two important virtual functions to implement:</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">download</span></code>: download the raw files of the dataset from the Interent and store them in pre-defined places;</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">process</span></code>: process the raw files fetched by <code class="xref py py-obj docutils literal notranslate"><span class="pre">download</span></code> and store the processed file defined by the data class <code class="xref py py-obj docutils literal notranslate"><span class="pre">Graph</span></code>.</p></li>
+</ul>
+<p>The data class <code class="xref py py-obj docutils literal notranslate"><span class="pre">Graph</span></code> is designed to store the critical data for the homogeneous graph; the corresponding data class for the heterogeneous graph is <code class="xref py py-obj docutils literal notranslate"><span class="pre">HeteroGraph</span></code>.
+To instantiate <code class="xref py py-obj docutils literal notranslate"><span class="pre">Graph</span></code>, one needs to at least provide the following information:</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">row</span></code>: the row index of the edges in the graph;</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">col</span></code>: the column index of the edges in the graph;</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_weight</span></code>: the weight of the edges in the graph;</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_type</span></code>: the type of the edges in the graph;</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_node</span></code>: the total number of nodes in the graph;</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">node_type</span></code>: the type of the nodes in the graph.</p></li>
+</ul>
+<p>The datasets in the <a class="reference external" href="../../api/datasets/datasets.html">datasets part</a> all follow the same construction scheme.</p>
+<p>Please refer to the <a class="reference external" href="../../api/data/data.html">data part</a> for more detailed introduction of the two base classes, <code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeDataset</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">HeteroNodeDataset</span></code>.</p>
+</section>
+<section id="build-models-under-sgap-paradigm">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Build models under SGAP paradigm</a><a class="headerlink" href="#build-models-under-sgap-paradigm" title="Permalink to this heading">¶</a></h3>
+<p>SGL adopts the <a class="reference external" href="https://arxiv.org/abs/2203.00638">SGAP</a> (Scalable Graph Architecture Paradigm) as its training paradigm.
+Corresponding to that, the model construction paradigm differs from the conventional <a class="reference external" href="http://proceedings.mlr.press/v70/gilmer17a/gilmer17a.pdf">message passing</a> paradigm.
+The detailed introduciton of the model construction paradigm of SGL is provided in <a class="reference external" href="../overview/overview.html">overview</a>.
+Below will explain how to build a SGC in SGL.</p>
+<p>As introduced in <a class="reference external" href="../overview/overview.html">overview</a>, a GNN model in SGL is composed of five parts:</p>
+<ul class="simple">
+<li><p><em>pre_graph_op</em>, <em>pre_msg_op</em>: <strong>Graph Operator</strong> and <strong>Message Operator</strong> for the Preprocessing stage;</p></li>
+<li><p><em>base_model</em>: <strong>Base Model</strong> for the Training stage;</p></li>
+<li><p><em>post_graph_op</em>, <em>post_msg_op</em>: <strong>Graph Operator</strong> and <strong>Message Operator</strong> for the Postprocessing stage.</p></li>
+</ul>
+<p>Thus, users only have to assign each module with pre-/user-defined Graph Operator/Message operator/Base Model when building models after inheriting the base class <code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseSGAPModel</span></code>.
+The behaviors of the adopted different Graph Operators, Message Operators and Base Models determine the behaviors of the built GNN models.
+The code of building SGC is provided below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sgl.models.base_model</span> <span class="kn">import</span> <span class="n">BaseSGAPModel</span>
+<span class="kn">from</span> <span class="nn">sgl.models.simple_models</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sgl.operators.graph_op</span> <span class="kn">import</span> <span class="n">LaplacianGraphOp</span>
+<span class="kn">from</span> <span class="nn">sgl.operators.message_op</span> <span class="kn">import</span> <span class="n">LastMessageOp</span>
+
+
+<span class="k">class</span> <span class="nc">SGC</span><span class="p">(</span><span class="n">BaseSGAPModel</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prop_steps</span><span class="p">,</span> <span class="n">feat_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SGC</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">prop_steps</span><span class="p">,</span> <span class="n">feat_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pre_graph_op</span> <span class="o">=</span> <span class="n">LaplacianGraphOp</span><span class="p">(</span><span class="n">prop_steps</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pre_msg_op</span> <span class="o">=</span> <span class="n">LastMessageOp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">feat_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <em>LaplacianGraphOp</em>, <em>LastMessageOp</em>,and <em>LogisticRegreesion</em> are pre-defined Graph Operator, Message Operator, and Base Model, respectively.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SGC does not have the Postprocessing stage in its training process. Thus, the modules used for the Postprocessing stage do not exist in the construction of SGC.</p>
+</div>
+<p>In the following parts of this tutorial, we will introduce ways to implement new Graph Operators and Message Operators.</p>
+</section>
+<section id="implement-new-graph-operators">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Implement new Graph Operators</a><a class="headerlink" href="#implement-new-graph-operators" title="Permalink to this heading">¶</a></h3>
+<p>As introduced in <a class="reference external" href="../overview/overview.html">overview</a>, the behaviors of the Graph Operators can be represented as follows: <span class="math notranslate nohighlight">\(\textbf{M}=graph\_propagate(\textbf{A}, \textbf{X})\)</span>.
+Thus, the critical part of implementing new Graph Operators is to determine the value of the matrix <span class="math notranslate nohighlight">\(\textbf{A}\)</span>.</p>
+<p>In SGL, users only need to implement the virtual function <em>construct_adj</em>, which takes in the original adjacency matrix of the graph and outputs the desired propagation matrix after inheriting the base class <code class="xref py py-obj docutils literal notranslate"><span class="pre">GraphOp</span></code>.
+Below is the implementation of the PPR (Personalized PageRank) Graph Operator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">PprGraphOp</span><span class="p">(</span><span class="n">GraphOp</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prop_steps</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PprGraphOp</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">prop_steps</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__r</span> <span class="o">=</span> <span class="n">r</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+
+    <span class="k">def</span> <span class="nf">_construct_adj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">adj</span><span class="p">):</span>
+        <span class="n">adj_normalized</span> <span class="o">=</span> <span class="n">adj_to_symmetric_norm</span><span class="p">(</span><span class="n">adj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__r</span><span class="p">)</span>
+        <span class="n">adj_normalized</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">adj_normalized</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alpha</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">adj</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">adj_normalized</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Please refer to <a class="reference external" href="../../api/operators/operators.html">operators part</a> for more detailed introduction.</p>
+</section>
+<section id="implement-new-message-operators">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Implement new Message Operators</a><a class="headerlink" href="#implement-new-message-operators" title="Permalink to this heading">¶</a></h3>
+<p>Similar to implementing new Graph Operators, implementing new Message Operators is easy in SGL.
+The users need to determine the behaviors of the new Message Operators represented in <span class="math notranslate nohighlight">\(\textbf{X}'=message\_aggregate(\textbf{M})\)</span>.</p>
+<p>Practically speaking, users have to implement the virtual function <em>combine</em> function after inheriting the base class <code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageOp</span></code>.
+The code below provides the implementation of the ConcatMessageOp in SGL:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ConcatMessageOp</span><span class="p">(</span><span class="n">MessageOp</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ConcatMessageOp</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_aggr_type</span> <span class="o">=</span> <span class="s2">&quot;concat&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_combine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feat_list</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">feat_list</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">_end</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Please refer to <a class="reference external" href="../../api/operators/operators.html">operators part</a> for more detailed introduction.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../installation/installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../api/data/data.html" class="btn btn-neutral float-right" title="sgl.data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, DAIR @PKU.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

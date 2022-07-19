@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overview &mdash; SGL beta documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Installation" href="../installation/installation.html" />
+    <link rel="prev" title="SGL: Scalable Graph Learning" href="../../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> SGL
+          </a>
+              <div class="version">
+                0.1.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick_start/quick_start.html">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/data/data.html">data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/datasets/datasets.html">datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/operators/graph_operators.html">graph operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/operators/message_operators.html">message operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/models/models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/tasks/tasks.html">tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/search/search.html">search</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SGL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Overview</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/get_started/overview/overview.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h1>
+<p><strong>SGL</strong> is a Graph Neural Network (GNN) toolkit targeting scalable graph learning, which supports deep graph learning on extremely large datasets.
+SGL allows users to easily implement scalable graph neural networks and evaluate its performance on various downstream tasks like node classification, node clustering, and link prediction.
+Further, SGL supports auto neural architecture search functionality based on <a class="reference external" href="https://github.com/PKU-DAIR/open-box">OpenBox</a>.
+SGL is designed and developed by the graph learning team from the <a class="reference external" href="https://cuibinpku.github.io/index.html">DAIR Lab</a> at Peking University.</p>
+<section id="main-functionalities">
+<h2>Main Functionalities<a class="headerlink" href="#main-functionalities" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>A handy platform for <strong>implementing and evaluating scalable GNNs</strong>.</p></li>
+<li><p>Scalable learning on various graph-related tasks, including <strong>node classification</strong>, <strong>node clustering</strong>, and <strong>link prediction</strong>.</p></li>
+<li><p><strong>Auto neural architecture search</strong> on given tasks, datasets and objectives.</p></li>
+</ul>
+</section>
+<section id="training-paradigm">
+<h2>Training paradigm<a class="headerlink" href="#training-paradigm" title="Permalink to this heading">¶</a></h2>
+<p>The main design goal of SGL is to support scalable graph learning.
+SGL adopts the scalable training paradigm, <strong>SGAP</strong> (Scalable Graph Architecture Paradigm), in <a class="reference external" href="https://arxiv.org/abs/2203.00638">PaSca</a>.
+<strong>SGAP</strong> split the conventional GNN training process into three independent stages — <strong>Preprocessing</strong>, <strong>Training</strong>, and <strong>Postprocessing</strong>, which can be represented as follows:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Preprocessing</strong>: <span class="math notranslate nohighlight">\(\textbf{M}=graph\_propagate(\textbf{A}, \textbf{X})\)</span>; <span class="math notranslate nohighlight">\(\textbf{X}'=message\_aggregate(\textbf{M})\)</span></dt><dd><ul>
+<li><p><strong>SGAP</strong> propagates and aggregates information at the graph level.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Training</strong>: <span class="math notranslate nohighlight">\(\textbf{Y}=model\_train(\textbf{X}')\)</span></dt><dd><ul>
+<li><p><strong>SGAP</strong> feeds the propagated and aggregated information into a machine learning model (e.g., SVM, MLP) for training.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Postprocessing</strong>: <span class="math notranslate nohighlight">\(\textbf{M}'=graph\_propagate(\textbf{A},\textbf{Y})\)</span>; <span class="math notranslate nohighlight">\(\textbf{Y}'=message\_aggregate(\textbf{M}')\)</span></dt><dd><ul>
+<li><p><strong>SGAP</strong> again propagates and aggregates the outputs of the previous stage at the graph level.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The first <span class="math notranslate nohighlight">\(message\_aggregate\)</span> operation in the <strong>Preprocessing</strong> stage will be transferred to the <strong>Training</strong>  stage if it contains learnable parameters; and the second <span class="math notranslate nohighlight">\(message\_aggregate\)</span> operation in the <strong>Postprocessing</strong> stage is prohibited to contain learnable parameters.</p>
+</div>
+<p>Compared to conventional GNN training process, <strong>SGAP</strong> has mainly two advantages:</p>
+<ol class="arabic simple">
+<li><p>The time- and resource-consuming propagation operation is only executed two times during the full training process; while the number of executing propagation in the conventional GNN training process equals to the number of training epochs, which is usually far greater than two.</p></li>
+<li><p>The dependencies between training examples have been fully taken care of in the <strong>Preprocessing</strong> stage. Thus, the training examples can be freely split to small batches to feed into the model in the <strong>Training</strong> stage, which boosts the efficiency and the scalability of the training process.</p></li>
+</ol>
+</section>
+<section id="model-construction-paradigm">
+<h2>Model construction paradigm<a class="headerlink" href="#model-construction-paradigm" title="Permalink to this heading">¶</a></h2>
+<p>Corresponding to its training paradigm, <strong>SGAP</strong>, SGL needs to define the behaviors of two <span class="math notranslate nohighlight">\(graph\_propagate`s, two :math:`message\_aggregate`s, and :math:`model\_train\)</span> for each GNN model.
+To fulfill this goal, SGL designs three important modules:</p>
+<ul class="simple">
+<li><p><strong>Graph Operator</strong>: to carry out the functionality of <span class="math notranslate nohighlight">\(graph\_propagate\)</span>. It receives the adjacency matrix <span class="math notranslate nohighlight">\(\textbf{A}\)</span> and the node representation matrix <span class="math notranslate nohighlight">\(\textbf{X}\)</span>, and outputs a list of propagated information matrices of different propagation depths.</p></li>
+<li><p><strong>Message Operator</strong>: to carry out the functionality of <span class="math notranslate nohighlight">\(message\_aggregate\)</span>. It receives a list of propagated information matrices and aggregates the matrices according to pre-defined behaviors. The final output of each <strong>Message Operator</strong> is a single matrix.</p></li>
+<li><p><strong>Base Model</strong>: to carry out the functionality of <span class="math notranslate nohighlight">\(model\_training\)</span>. It can be not only deep learning models like MLP, but also traditional machine learning methods like SVM and random forest.</p></li>
+</ul>
+<p>To construct a GNN model in SGL, the users only need to fill in some blanks with pre-/user-defined <strong>Graph Operators</strong>, <strong>Message Operators</strong> and <strong>Base Models</strong>.
+Please refer to <a class="reference external" href="../../api/models/models.html">models part</a> for the detailed API for constructing models.
+SGL also provides simple interfaces for defining new <strong>Graph Operators</strong> and <strong>Message Operators</strong>, please refer to <a class="reference external" href="../../api/operators/operators.html">operators part</a> for more details.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../index.html" class="btn btn-neutral float-left" title="SGL: Scalable Graph Learning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../installation/installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, DAIR @PKU.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

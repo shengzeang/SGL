@@ -41,3 +41,5 @@ __all__ = [
     "WebKB",
     "Wikics",
 ]
+
+classes = __all__

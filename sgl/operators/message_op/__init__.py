@@ -23,3 +23,5 @@ __all__ = [
     "SumMessageOp",
     "OverSmoothDistanceWeightedOp"
 ]
+
+classes = __all__

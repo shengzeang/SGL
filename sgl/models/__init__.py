@@ -1,7 +1,7 @@
 from .base_model import BaseSGAPModel, BaseHeteroSGAPModel, FastBaseHeteroSGAPModel
 from .simple_models import OneDimConvolution, MultiLayerPerceptron, FastOneDimConvolution, LogisticRegression, ResMultiLayerPerceptron
-from .homo import homo
-from .hetero import hetero
+from . import homo, hetero
+
 
 __all__ = [
     "BaseSGAPModel",
@@ -15,3 +15,5 @@ __all__ = [
     "homo",
     "hetero",
 ]
+
+classes = __all__

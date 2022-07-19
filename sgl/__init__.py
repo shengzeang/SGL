@@ -1,12 +1,6 @@
 name = "sgl"
 
-from .data import data
-from .dataset import dataset
-from .models import models
-from .operators import operators
-from .tasks import tasks
-from .search import search
-from .tricks import tricks
+from . import data, dataset, models, operators, tasks, search, tricks
 
 
 __all__ = [
@@ -18,3 +12,5 @@ __all__ = [
     "search",
     "tricks",
 ]
+
+classes = __all__

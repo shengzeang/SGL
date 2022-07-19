@@ -10,3 +10,5 @@ __all__ = [
     "NodeDataset",
     "HeteroNodeDataset",
 ]
+
+classes = __all__
