@@ -5,8 +5,8 @@ recommonmark
 https://download.pytorch.org/whl/cpu/torch-1.9.0%2Bcpu-cp37-cp37m-linux_x86_64.whl
 https://data.pyg.org/whl/torch-1.9.0%2Bcpu/torch_scatter-2.0.7-cp37-cp37m-linux_x86_64.whl
 https://data.pyg.org/whl/torch-1.9.0%2Bcpu/torch_sparse-0.6.10-cp37-cp37m-linux_x86_64.whl
+torch_geometric
 
-torch>=1.8
 networkx
 tqdm
 numpy>=1.21
