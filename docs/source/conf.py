@@ -30,8 +30,7 @@ extensions = ['recommonmark',
               'sphinx.ext.napoleon',
               'sphinx.ext.autosummary',
               'sphinx.ext.viewcode',
-              'sphinx.ext.githubpages',
-              'sphinx_markdown_tables']
+              'sphinx.ext.githubpages',]
 
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3/', None),
