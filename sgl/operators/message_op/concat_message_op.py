@@ -4,9 +4,6 @@ from sgl.operators.base_op import MessageOp
 
 
 class ConcatMessageOp(MessageOp):
-    """
-        1234567
-    """
     def __init__(self, start, end):
         super(ConcatMessageOp, self).__init__(start, end)
         self._aggr_type = "concat"
