@@ -9,50 +9,6 @@ from sgl.operators.utils import csr_sparse_dense_matmul, cuda_csr_sparse_dense_m
 
 
 class GraphOp:
-    r"""The approximate personalized propagation of neural predictions layer
-    from the `"Predict then Propagate: Graph Neural Networks meet Personalized
-    PageRank" <https://arxiv.org/abs/1810.05997>`_ paper
-
-    .. math::
-        \mathbf{X}^{(0)} &= \mathbf{X}
-
-        \mathbf{X}^{(k)} &= (1 - \alpha) \mathbf{\hat{D}}^{-1/2}
-        \mathbf{\hat{A}} \mathbf{\hat{D}}^{-1/2} \mathbf{X}^{(k-1)} + \alpha
-        \mathbf{X}^{(0)}
-        
-        \mathbf{X}^{\prime} &= \mathbf{X}^{(K)},
-
-    where :math:`\mathbf{\hat{A}} = \mathbf{A} + \mathbf{I}` denotes the
-    adjacency matrix with inserted self-loops and
-    :math:`\hat{D}_{ii} = \sum_{j=0} \hat{A}_{ij}` its diagonal degree matrix.
-    The adjacency matrix can include other values than :obj:`1` representing
-    edge weights via the optional :obj:`edge_weight` tensor.
-
-    Args:
-        K (int): Number of iterations :math:`K`.
-        alpha (float): Teleport probability :math:`\alpha`.
-        dropout (float, optional): Dropout probability of edges during
-            training. (default: :obj:`0`)
-        cached (bool, optional): If set to :obj:`True`, the layer will cache
-            the computation of :math:`\mathbf{\hat{D}}^{-1/2} \mathbf{\hat{A}}
-            \mathbf{\hat{D}}^{-1/2}` on first execution, and will use the
-            cached version for further executions.
-            This parameter should only be set to :obj:`True` in transductive
-            learning scenarios. (default: :obj:`False`)
-        add_self_loops (bool, optional): If set to :obj:`False`, will not add
-            self-loops to the input graph. (default: :obj:`True`)
-        normalize (bool, optional): Whether to add self-loops and apply
-            symmetric normalization. (default: :obj:`True`)
-        **kwargs (optional): Additional arguments of
-            :class:`torch_geometric.nn.conv.MessagePassing`.
-
-    Shapes:
-        - **input:**
-          node features :math:`(|\mathcal{V}|, F)`,
-          edge indices :math:`(2, |\mathcal{E}|)`,
-          edge weights :math:`(|\mathcal{E}|)` *(optional)*
-        - **output:** node features :math:`(|\mathcal{V}|, F)`
-    """
     def __init__(self, prop_steps):
         self._prop_steps = prop_steps
         self._adj = None
@@ -82,9 +38,6 @@ class GraphOp:
 
 # Might include training parameters
 class MessageOp(nn.Module):
-    '''
-        1234567
-    '''
     def __init__(self, start=None, end=None):
         super(MessageOp, self).__init__()
         self._aggr_type = None
